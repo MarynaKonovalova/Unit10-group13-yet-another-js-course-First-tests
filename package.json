@@ -1,0 +1,23 @@
+{
+  "name": "unit10-group13-yet-another-js-course-first-tests",
+  "version": "1.0.0",
+  "description": "Playwright + TypeScript login test automation — Unit 10 (Yet Another JS Course)",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarynaKonovalova/Unit10-group13-yet-another-js-course-First-tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MarynaKonovalova/Unit10-group13-yet-another-js-course-First-tests/issues"
+  },
+  "homepage": "https://github.com/MarynaKonovalova/Unit10-group13-yet-another-js-course-First-tests#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}
