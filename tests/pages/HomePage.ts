@@ -13,4 +13,8 @@ export class HomePage {
   async goto() {
     await this.page.goto('/');
   }
+
+  async openProduct(name: string) {
+    await this.page.locator('[data-test="product-name"]', { hasText: name }).click();
+  }
 }
