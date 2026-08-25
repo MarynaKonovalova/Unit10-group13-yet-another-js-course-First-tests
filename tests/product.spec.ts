@@ -16,15 +16,17 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from './pages/HomePage';
 import { ProductPage } from './pages/ProductPage';
 
+const PRODUCT_NAME = 'Combination Pliers';
+
 test('Verify user can view product details', async ({ page }) => {
     const homePage = new HomePage(page);
     const productPage = new ProductPage(page);
 
     await homePage.goto();
-    await homePage.openProduct('Combination Pliers');
+    await homePage.openProduct(PRODUCT_NAME);
 
     await expect(page).toHaveURL(/.*\/product/);
-    await expect(productPage.productName).toHaveText('Combination Pliers');
+    await expect(productPage.productName).toHaveText(PRODUCT_NAME);
     await expect(productPage.price).toHaveText('14.15');
     await expect(productPage.addToCartButton).toBeVisible();
     await expect(productPage.addToFavoritesButton).toBeVisible();
