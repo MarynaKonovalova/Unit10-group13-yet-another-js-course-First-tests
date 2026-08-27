@@ -6,12 +6,14 @@ export class HomePage {
   readonly header: HeaderFragment;
   readonly sortDropdown: Locator;
   readonly productNames: Locator;
+  readonly productPrices: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.header = new HeaderFragment(page);
     this.sortDropdown = page.getByTestId('sort');
     this.productNames = page.getByTestId('product-name');
+    this.productPrices = page.getByTestId('product-price');
   }
 
   async goto() {
