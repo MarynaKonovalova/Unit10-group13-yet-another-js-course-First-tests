@@ -19,6 +19,8 @@ import { validUser } from './test-data/users';
 import { LoginPage } from './pages/LoginPage';
 import { AccountPage } from './pages/AccountPage';
 
+test.use({ storageState: 'playwright/.auth/user.json' });
+
 test('Verify login with valid credentials', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const accountPage = new AccountPage(page);
