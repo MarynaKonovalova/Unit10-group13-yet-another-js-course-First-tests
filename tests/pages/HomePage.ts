@@ -27,4 +27,9 @@ export class HomePage {
   async sortBy(value: string) {
     await this.sortDropdown.selectOption(value);
   }
+
+  async filterByCategory(categoryTestId: string) {
+    await this.page.getByTestId(categoryTestId).check();
+    await this.page.waitForLoadState('networkidle');
+  }
 }
