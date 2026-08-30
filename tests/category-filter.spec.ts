@@ -21,7 +21,7 @@ test('Verify user can filter products by category', async ({ page }) => {
     const names = await homePage.productNames.allTextContents();
 
     expect(names.length).toBeGreaterThan(0);
-    for (const name of names) {
+    for (const name of await homePage.productNames.allTextContents()) {}
         expect(name).toContain(CATEGORY_NAME);
     }
 });
