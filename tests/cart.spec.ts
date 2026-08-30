@@ -47,7 +47,7 @@ test('Verify user can add product to cart', async ({ page }) => {
 
     await productPage.header.cartIcon.click();
 
-    await expect(page).toHaveURL('https://practicesoftwaretesting.com/checkout');
+    await expect(page).toHaveURL('/checkout');
     await expect(cartPage.productTitles).toHaveCount(1);
     await expect(cartPage.productTitles.first()).toHaveText(PRODUCT_NAME);
     await expect(cartPage.proceedToCheckoutButton).toBeVisible();
