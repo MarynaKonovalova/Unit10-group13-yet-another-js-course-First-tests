@@ -18,6 +18,7 @@ export class HomePage {
 
   async goto() {
     await this.page.goto('/');
+    await this.productNames.first().waitFor();
   }
 
   async openProduct(name: string) {
@@ -25,11 +26,24 @@ export class HomePage {
   }
 
   async sortBy(value: string) {
+    const productsResponse = this.page.waitForResponse(
+      (response) =>
+        response.url().includes('/products') &&
+        response.ok() &&
+        (response.request().postData() ?? '').includes(`"sort":"${value}"`)
+    );
     await this.sortDropdown.selectOption(value);
+    await productsResponse;
   }
 
-  async filterByCategory(categoryTestId: string) {
-    await this.page.getByTestId(categoryTestId).check();
-    await this.page.waitForLoadState('networkidle');
+  async filterByCategory(categoryLabel: string) {
+    const productsResponse = this.page.waitForResponse(
+      (response) =>
+        response.url().includes('/products') &&
+        response.ok() &&
+        (response.request().postData() ?? '').includes('by_category')
+    );
+    await this.page.getByLabel(categoryLabel, { exact: true }).check();
+    await productsResponse;
   }
 }

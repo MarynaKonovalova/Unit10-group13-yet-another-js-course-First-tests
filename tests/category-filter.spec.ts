@@ -18,10 +18,8 @@ test('Verify user can filter products by category', async ({ page }) => {
     await homePage.goto();
     await homePage.filterByCategory(PowerToolsCategory.Sander);
 
-    const names = await homePage.productNames.allTextContents();
-
-    expect(names.length).toBeGreaterThan(0);
-    for (const name of await homePage.productNames.allTextContents()) {}
+    await expect(homePage.productNames).not.toHaveCount(0);
+    for (const name of await homePage.productNames.allTextContents()) {
         expect(name).toContain(CATEGORY_NAME);
     }
 });
