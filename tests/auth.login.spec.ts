@@ -1,9 +1,8 @@
 import { test as setup, expect } from '@playwright/test';
 import { validUser } from './test-data/users';
+import { userAuthJsonPath } from './test-data/constants';
 import { LoginPage } from './pages/LoginPage';
 import { AccountPage } from './pages/AccountPage';
-
-const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -15,5 +14,5 @@ setup('authenticate', async ({ page }) => {
   await expect(page).toHaveURL('/account');
   await expect(accountPage.header.userMenu).toContainText('Jane Doe');
 
-  await page.context().storageState({ path: authFile });
+  await page.context().storageState({ path: userAuthJsonPath });
 });

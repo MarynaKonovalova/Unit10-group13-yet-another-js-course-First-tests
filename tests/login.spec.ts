@@ -16,10 +16,11 @@ Verify username "Jane Doe" appears in the navigation bar.
 
 import { test, expect } from '@playwright/test';
 import { validUser } from './test-data/users';
+import { userAuthJsonPath } from './test-data/constants';
 import { LoginPage } from './pages/LoginPage';
 import { AccountPage } from './pages/AccountPage';
 
-test.use({ storageState: 'playwright/.auth/user.json' });
+test.use({ storageState: userAuthJsonPath });
 
 test('Verify login with valid credentials', async ({ page }) => {
     const loginPage = new LoginPage(page);

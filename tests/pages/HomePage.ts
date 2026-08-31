@@ -1,5 +1,6 @@
 import { Page, Locator } from '@playwright/test';
 import { HeaderFragment } from './HeaderFragment';
+import { HandToolsCategory, PowerToolsCategory, OtherCategory } from '../test-data/categories';
 
 export class HomePage {
   readonly page: Page;
@@ -36,7 +37,7 @@ export class HomePage {
     await productsResponse;
   }
 
-  async filterByCategory(categoryLabel: string) {
+  async filterByCategory(categoryLabel: HandToolsCategory | PowerToolsCategory | OtherCategory) {
     const productsResponse = this.page.waitForResponse(
       (response) =>
         response.url().includes('/products') &&
