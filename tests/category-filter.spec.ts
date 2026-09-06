@@ -6,20 +6,17 @@ Select Sander in the category list (note: create 3 enums with categories: Hand T
 Assert: 1. Verify the displayed products contain Sander in their names.
 */
 
-import { test, expect } from '@playwright/test';
-import { HomePage } from './pages/HomePage';
+import { test, expect } from './fixture';
 import { PowerToolsCategory } from './test-data/categories';
 
 const CATEGORY_NAME = 'Sander';
 
-test('Verify user can filter products by category', async ({ page }) => {
-    const homePage = new HomePage(page);
+test('Verify user can filter products by category', async ({ app }) => {
+    await app.homePage.goto();
+    await app.homePage.filterByCategory(PowerToolsCategory.Sander);
 
-    await homePage.goto();
-    await homePage.filterByCategory(PowerToolsCategory.Sander);
-
-    await expect(homePage.productNames).not.toHaveCount(0);
-    for (const name of await homePage.productNames.allTextContents()) {
+    await expect(app.homePage.productNames).not.toHaveCount(0);
+    for (const name of await app.homePage.productNames.allTextContents()) {
         expect(name).toContain(CATEGORY_NAME);
     }
 });

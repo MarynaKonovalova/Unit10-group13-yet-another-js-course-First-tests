@@ -12,22 +12,17 @@ Verify "Add to Cart" button is visible.
 Verify "Add to Favorites" button is visible.
 */
 
-import { test, expect } from '@playwright/test';
-import { HomePage } from './pages/HomePage';
-import { ProductPage } from './pages/ProductPage';
+import { test, expect } from './fixture';
 
 const PRODUCT_NAME = 'Combination Pliers';
 
-test('Verify user can view product details', async ({ page }) => {
-    const homePage = new HomePage(page);
-    const productPage = new ProductPage(page);
-
-    await homePage.goto();
-    await homePage.openProduct(PRODUCT_NAME);
+test('Verify user can view product details', async ({ app, page }) => {
+    await app.homePage.goto();
+    await app.homePage.openProduct(PRODUCT_NAME);
 
     await expect(page).toHaveURL(/.*\/product/);
-    await expect(productPage.productName).toHaveText(PRODUCT_NAME);
-    await expect(productPage.price).toHaveText('14.15');
-    await expect(productPage.addToCartButton).toBeVisible();
-    await expect(productPage.addToFavoritesButton).toBeVisible();
+    await expect(app.productPage.productName).toHaveText(PRODUCT_NAME);
+    await expect(app.productPage.price).toHaveText('14.15');
+    await expect(app.productPage.addToCartButton).toBeVisible();
+    await expect(app.productPage.addToFavoritesButton).toBeVisible();
 });

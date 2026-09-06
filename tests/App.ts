@@ -4,6 +4,9 @@ import { ProductPage } from './pages/ProductPage';
 import { CartPage } from './pages/CartPage';
 import { LoginPage } from './pages/LoginPage';
 import { AccountPage } from './pages/AccountPage';
+import { CheckoutSignInPage } from './pages/CheckoutSignInPage';
+import { BillingAddressPage } from './pages/BillingAddressPage';
+import { PaymentPage } from './pages/PaymentPage';
 
 export class App {
     readonly homePage: HomePage;
@@ -11,6 +14,9 @@ export class App {
     readonly cartPage: CartPage;
     readonly loginPage: LoginPage;
     readonly accountPage: AccountPage;
+    readonly checkoutSignInPage: CheckoutSignInPage;
+    readonly billingAddressPage: BillingAddressPage;
+    readonly paymentPage: PaymentPage;
 
     constructor(page: Page) {
         this.homePage = new HomePage(page);
@@ -18,5 +24,8 @@ export class App {
         this.cartPage = new CartPage(page);
         this.loginPage = new LoginPage(page);
         this.accountPage = new AccountPage(page);
+        this.checkoutSignInPage = new CheckoutSignInPage(page);
+        this.billingAddressPage = new BillingAddressPage(page);
+        this.paymentPage = new PaymentPage(page);
     }
 }

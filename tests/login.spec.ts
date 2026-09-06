@@ -14,22 +14,17 @@ Verify username "Jane Doe" appears in the navigation bar.
 */
 
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixture';
 import { validUser } from './test-data/users';
 import { userAuthJsonPath } from './test-data/constants';
-import { LoginPage } from './pages/LoginPage';
-import { AccountPage } from './pages/AccountPage';
 
 test.use({ storageState: userAuthJsonPath });
 
-test('Verify login with valid credentials', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const accountPage = new AccountPage(page);
-
-    await loginPage.goto();
-    await loginPage.login(validUser.email, validUser.password);
+test('Verify login with valid credentials', async ({ app, page }) => {
+    await app.loginPage.goto();
+    await app.loginPage.login(validUser.email, validUser.password);
 
     await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
-    await expect(accountPage.heading).toBeVisible();
-    await expect(accountPage.header.userMenu).toContainText('Jane Doe');
+    await expect(app.accountPage.heading).toBeVisible();
+    await expect(app.accountPage.header.userMenu).toContainText('Jane Doe');
 });
