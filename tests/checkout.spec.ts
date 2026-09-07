@@ -15,13 +15,8 @@ Verify the payment was successful.
 */
 
 import { test, expect } from './fixture';
-
-function getExpirationDateInThreeMonths(): string {
-    const date = new Date();
-    date.setMonth(date.getMonth() + 3);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    return `${month}/${date.getFullYear()}`;
-}
+import { expirationDateInThreeMonths } from './utils/date';
+import { testCreditCard } from './test-data/payment';
 
 test('Verify logged-in user can complete a purchase', async ({ loggedInApp: app, page }) => {
     await app.homePage.goto();
@@ -56,10 +51,8 @@ test('Verify logged-in user can complete a purchase', async ({ loggedInApp: app,
     await app.billingAddressPage.proceedToCheckoutButton.click();
 
     await app.paymentPage.payByCreditCard({
-        cardNumber: '1111-1111-1111-1111',
-        expirationDate: getExpirationDateInThreeMonths(),
-        cvv: '111',
-        cardHolderName: 'Jane Doe',
+        ...testCreditCard,
+        expirationDate: expirationDateInThreeMonths,
     });
 
     await expect(app.paymentPage.successMessage).toBeVisible();
