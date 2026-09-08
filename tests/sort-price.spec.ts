@@ -6,8 +6,7 @@ Select Price (High - Low) / Price (Low - High) in the sort dropdown.
 Assert: 1. Verify all the displayed products are sorted by prices ascending or descending.
 */
 
-import { test, expect } from '@playwright/test';
-import { HomePage } from './pages/HomePage';
+import { test, expect } from './fixture';
 
 const sortCases = [
     { label: 'Price (Low - High)', value: 'price,asc', direction: 'ascending' as const },
@@ -15,13 +14,11 @@ const sortCases = [
 ];
 
 for (const { label, value, direction } of sortCases) {
-    test(`Verify user can perform sorting by price - ${label}`, async ({ page }) => {
-        const homePage = new HomePage(page);
+    test(`Verify user can perform sorting by price - ${label}`, async ({ app }) => {
+        await app.homePage.goto();
+        await app.homePage.sortBy(value);
 
-        await homePage.goto();
-        await homePage.sortBy(value);
-
-        const prices = (await homePage.productPrices.allTextContents()).map((price) =>
+        const prices = (await app.homePage.productPrices.allTextContents()).map((price) =>
             parseFloat(price.replace('$', ''))
         );
         const sortedPrices = [...prices].sort((a, b) =>

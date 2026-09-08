@@ -18,37 +18,30 @@ Assert: 1. Verify URL is https://practicesoftwaretesting.com/checkout.
 4. Verify "Proceed to Checkout" button is visible.
 */
 
-import { test, expect } from '@playwright/test';
-import { HomePage } from './pages/HomePage';
-import { ProductPage } from './pages/ProductPage';
-import { CartPage } from './pages/CartPage';
+import { test, expect } from './fixture';
 
 const PRODUCT_NAME = 'Slip Joint Pliers';
 const PRODUCT_PRICE = '9.17';
 
-test('Verify user can add product to cart', async ({ page }) => {
-    const homePage = new HomePage(page);
-    const productPage = new ProductPage(page);
-    const cartPage = new CartPage(page);
-
-    await homePage.goto();
-    await homePage.openProduct(PRODUCT_NAME);
+test('Verify user can add product to cart', async ({ app, page }) => {
+    await app.homePage.goto();
+    await app.homePage.openProduct(PRODUCT_NAME);
 
     await expect(page).toHaveURL(/.*\/product/);
-    await expect(productPage.productName).toHaveText(PRODUCT_NAME);
-    await expect(productPage.price).toHaveText(PRODUCT_PRICE);
+    await expect(app.productPage.productName).toHaveText(PRODUCT_NAME);
+    await expect(app.productPage.price).toHaveText(PRODUCT_PRICE);
 
-    await productPage.addToCartButton.click();
+    await app.productPage.addToCartButton.click();
 
-    await expect(productPage.cartAlert).toBeVisible();
-    await expect(productPage.cartAlert).toHaveText('Product added to shopping cart.');
-    await expect(productPage.cartAlert).toBeHidden({ timeout: 9000 });
-    await expect(productPage.header.cartQuantity).toHaveText('1');
+    await expect(app.productPage.cartAlert).toBeVisible();
+    await expect(app.productPage.cartAlert).toHaveText('Product added to shopping cart.');
+    await expect(app.productPage.cartAlert).toBeHidden({ timeout: 9000 });
+    await expect(app.productPage.header.cartQuantity).toHaveText('1');
 
-    await productPage.header.cartIcon.click();
+    await app.productPage.header.cartIcon.click();
 
     await expect(page).toHaveURL('/checkout');
-    await expect(cartPage.productTitles).toHaveCount(1);
-    await expect(cartPage.productTitles.first()).toHaveText(PRODUCT_NAME);
-    await expect(cartPage.proceedToCheckoutButton).toBeVisible();
+    await expect(app.cartPage.productTitles).toHaveCount(1);
+    await expect(app.cartPage.productTitles.first()).toHaveText(PRODUCT_NAME);
+    await expect(app.cartPage.proceedToCheckoutButton).toBeVisible();
 });
