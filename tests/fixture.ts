@@ -1,6 +1,7 @@
 import { test as base } from '@playwright/test';
 import { App } from './App';
 import { validUser } from './test-data/users';
+import { apiBaseURL } from './test-data/constants';
 
 type Fixtures = {
     app: App;
@@ -13,10 +14,15 @@ export const test = base.extend<Fixtures>({
         await use(app);
     },
 
-    loggedInApp: async ({ app, page }, use) => {
-        await app.loginPage.goto();
-        await app.loginPage.login(validUser.email, validUser.password);
-        await page.waitForURL('/account');
+    loggedInApp: async ({ app, page, request }, use) => {
+        const response = await request.post(`${apiBaseURL}/users/login`, {
+            data: { email: validUser.email, password: validUser.password },
+        });
+        const { access_token: authToken } = await response.json();
+
+        await page.addInitScript((token) => {
+            window.localStorage.setItem('auth-token', token);
+        }, authToken);
 
         await use(app);
     },
