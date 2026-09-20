@@ -18,7 +18,7 @@ import { test, expect } from './fixture';
 import { expirationDateInThreeMonths } from './utils/date';
 import { testCreditCard } from './test-data/payment';
 
-test('Verify logged-in user can complete a purchase', async ({ loggedInApp: app, page }) => {
+test('Verify logged-in user can complete a purchase', { tag: '@smoke' }, async ({ loggedInApp: app, page }) => {
     await app.homePage.goto();
 
     const productName = (await app.homePage.productNames.first().textContent())!.trim();
