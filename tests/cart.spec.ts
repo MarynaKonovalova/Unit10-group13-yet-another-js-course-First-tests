@@ -23,7 +23,7 @@ import { test, expect } from './fixture';
 const PRODUCT_NAME = 'Slip Joint Pliers';
 const PRODUCT_PRICE = '9.17';
 
-test('Verify user can add product to cart', async ({ app, page }) => {
+test('Verify user can add product to cart', { tag: '@smoke' }, async ({ app, page }) => {
     await app.homePage.goto();
     await app.homePage.openProduct(PRODUCT_NAME);
 
