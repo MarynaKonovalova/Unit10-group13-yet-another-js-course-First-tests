@@ -14,7 +14,7 @@ const sortCases = [
 ];
 
 for (const { label, value, direction } of sortCases) {
-    test(`Verify user can perform sorting by price - ${label}`, async ({ app }) => {
+    test(`Verify user can perform sorting by price - ${label}`, { tag: '@regression' }, async ({ app }) => {
         await app.homePage.goto();
         await app.homePage.sortBy(value);
 

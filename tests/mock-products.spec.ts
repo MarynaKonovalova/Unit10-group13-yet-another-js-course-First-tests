@@ -42,7 +42,7 @@ function buildMockProducts(count: number) {
     }));
 }
 
-test('Verify mocked products are displayed on the homepage', async ({ app, page }) => {
+test('Verify mocked products are displayed on the homepage', { tag: '@regression' }, async ({ app, page }) => {
     const mockProducts = buildMockProducts(MOCK_PRODUCTS_COUNT);
 
     await page.route('**/products', (route) =>

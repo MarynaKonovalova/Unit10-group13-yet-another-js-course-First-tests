@@ -16,7 +16,7 @@ import { test, expect } from './fixture';
 
 const PRODUCT_NAME = 'Combination Pliers';
 
-test('Verify user can view product details', async ({ app, page }) => {
+test('Verify user can view product details', { tag: '@regression' }, async ({ app, page }) => {
     await app.homePage.goto();
     await app.homePage.openProduct(PRODUCT_NAME);
 

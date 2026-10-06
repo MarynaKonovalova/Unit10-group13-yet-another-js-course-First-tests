@@ -11,7 +11,7 @@ import { PowerToolsCategory } from './test-data/categories';
 
 const CATEGORY_NAME = 'Sander';
 
-test('Verify user can filter products by category', async ({ app }) => {
+test('Verify user can filter products by category', { tag: '@regression' }, async ({ app }) => {
     await app.homePage.goto();
     await app.homePage.filterByCategory(PowerToolsCategory.Sander);
 
